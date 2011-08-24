@@ -1,5 +1,9 @@
 body {
-    padding-left: 0.5em;
+    width: 360px;
+    height: 220px;
+
+    margin: 0;
+    padding: 20px;
 }
 
 #console {
@@ -9,32 +13,39 @@ body {
 label {
     display: block;
 
-    margin-top: 1em;
-
     font-family: 'Lucida Grande';
-    font-size: 0.8em;
+    font-size: 13px;
     font-weight: bold;
 }
 
 input[type="text"] {
-    margin-bottom: 0.25em;
-    width: 30em;
+    width: 100%;
+
+    margin-bottom: 10px;
 }
 
 textarea {
-    width: 30em;
+    width: 100%;
+
+    margin-bottom: 10px;
 }
 
 #checkboxes {
-    margin: 1em 0 1em 0;
+    float: left;
+
+    margin-bottom: 10px;
 }
 
-label[for="private"], label[for="toread"] {
+label[for="private"] {
     display: inline;
 
-    margin-right: 3em;
+    margin-right: 30px;
 }
 
-input[type="submit"] {
-    display: block;
+label[for="toread"] {
+    display: inline;
+}
+
+input[type="button"] {
+    float: right;
 }

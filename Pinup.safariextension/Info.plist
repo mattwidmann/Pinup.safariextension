@@ -23,8 +23,12 @@
 			<dict>
 				<key>Filename</key>
 				<string>popover.html</string>
+				<key>Height</key>
+				<real>260</real>
 				<key>Identifier</key>
 				<string>pinupPopover</string>
+				<key>Width</key>
+				<real>400</real>
 			</dict>
 		</array>
 		<key>Toolbar Items</key>
