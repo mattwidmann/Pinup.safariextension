@@ -39,7 +39,6 @@ function submitAction (event) {
     var url = document.bookmark.url.value
     var title = document.bookmark.title.value
     var description = document.bookmark.description.value
-    log(description)
     var tags = document.bookmark.tags.value
     var private = document.bookmark.private.checked
     var toread = document.bookmark.toread.checked
