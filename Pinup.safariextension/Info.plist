@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Matt Widmann</string>
 	<key>Builder Version</key>
-	<string>7534.48.3</string>
+	<string>7534.51.22</string>
 	<key>CFBundleDisplayName</key>
 	<string>Pinup</string>
 	<key>CFBundleIdentifier</key>
@@ -54,7 +54,12 @@
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict/>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>injected.js</string>
+			</array>
+		</dict>
 	</dict>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
@@ -69,6 +74,6 @@
 		</dict>
 	</dict>
 	<key>Website</key>
-	<string>http://mattwidmann.net/projects/pinup</string>
+	<string>http://mattwidmann.net/pinup</string>
 </dict>
 </plist>

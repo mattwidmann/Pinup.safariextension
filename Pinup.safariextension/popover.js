@@ -6,6 +6,11 @@ function popoverHandler (event) {
 
     document.bookmark.url.value = url
     document.bookmark.title.value = title
+    document.bookmark.description.value = ''
+    document.bookmark.tags.value = ''
+    document.bookmark.private.checked = true
+
+    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('updateDescription')
 
     var api = pinboardEndpoint('/posts/get/', url)
 
@@ -22,8 +27,8 @@ function popoverHandler (event) {
         document.bookmark.title.value = json.posts[0].description
         document.bookmark.description.value = json.posts[0].extended
         document.bookmark.tags.value = json.posts[0].tags
-        document.bookmark.private.value = !json.posts[0].shared
-        document.bookmark.toread.value = json.posts[0].toread
+        document.bookmark.private.checked = !json.posts[0].shared
+        document.bookmark.toread.checked = json.posts[0].toread
     })
 }
 
@@ -53,6 +58,16 @@ function submitAction (event) {
 
         if (code === 'done') safari.extension.popovers[0].hide()
     })
+}
+
+safari.application.addEventListener('message', respondToMessage, false)
+
+function respondToMessage (event) {
+    if (event.name !== 'descriptionForTab') return
+
+    if (!event.message) return
+
+    document.bookmark.description.value = event.message
 }
 
 function pinboardEndpoint (method, url) {
