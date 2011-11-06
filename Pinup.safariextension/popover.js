@@ -45,13 +45,13 @@ function submitAction (event) {
     var title = document.bookmark.title.value
     var description = document.bookmark.description.value
     var tags = document.bookmark.tags.value
-    var private = document.bookmark.private.checked
-    var toread = document.bookmark.toread.checked
+    var private = document.bookmark.private.value
+    var toread = document.bookmark.toread.value
 
-    var endpoint = pinboardEndpoint('/posts/add/', url) + '&description=' + title + '&shared=' + (private ? 'yes' : 'no')
-    if (description != '') endpoint += '&extended=' + description
-    if (tags != '') endpoint += '&tags=' + tags
-    if (toread) endpoint += '&toread=' + 'yes'
+    var endpoint = pinboardEndpoint('/posts/add/', url) + '&description=' + encodeURIComponent(title) + '&shared=' + (private ? 'no' : 'yes')
+    if (description !== '') endpoint += ('&extended=' + encodeURIComponent(description))
+    if (tags != '') endpoint += ('&tags=' + encodeURIComponent(tags))
+    if (toread) endpoint += ('&toread=yes')
 
     sendRequest(endpoint, function (response) {
         var code = response.responseXML.getElementsByTagName('result')[0].attributes.getNamedItem('code').value
@@ -71,10 +71,10 @@ function respondToMessage (event) {
 }
 
 function pinboardEndpoint (method, url) {
-    var username = safari.extension.secureSettings.username
-    var password = safari.extension.secureSettings.password
+    var username = encodeURIComponent(safari.extension.secureSettings.username)
+    var password = encodeURIComponent(safari.extension.secureSettings.password)
 
-    return ('https://' + username + ':' + password + '@api.pinboard.in/v1' + method + '?format=json&url=' + url)
+    return ('https://' + username + ':' + password + '@api.pinboard.in/v1' + method + '?format=json&url=' + encodeURIComponent(url))
 }
 
 function cleanPinboardJSON (text) {
