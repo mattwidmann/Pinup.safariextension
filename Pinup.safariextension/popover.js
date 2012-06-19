@@ -1,5 +1,6 @@
 safari.application.addEventListener('popover', popoverHandler, false)
 
+// set up popover
 function popoverHandler (event) {
     var url = safari.application.activeBrowserWindow.activeTab.url
     var title = safari.application.activeBrowserWindow.activeTab.title
@@ -8,6 +9,7 @@ function popoverHandler (event) {
     document.bookmark.title.value = title
     document.bookmark.description.value = ''
     document.bookmark.tags.value = ''
+    // default to private
     document.bookmark.private.checked = true
 
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('updateDescription')
@@ -45,13 +47,12 @@ function submitAction (event) {
     var title = document.bookmark.title.value
     var description = document.bookmark.description.value
     var tags = document.bookmark.tags.value
-    var private = document.bookmark.private.value
-    var toread = document.bookmark.toread.value
+    var private = document.bookmark.private.checked
+    var toread = document.bookmark.toread.checked
 
-    var endpoint = pinboardEndpoint('/posts/add/', url) + '&description=' + encodeURIComponent(title) + '&shared=' + (private ? 'no' : 'yes')
+    var endpoint = pinboardEndpoint('/posts/add/', url) + '&description=' + encodeURIComponent(title) + '&shared=' + (private ? 'no' : 'yes') + '&toread=' + (toread ? 'yes' : 'no')
     if (description !== '') endpoint += ('&extended=' + encodeURIComponent(description))
     if (tags != '') endpoint += ('&tags=' + encodeURIComponent(tags))
-    if (toread) endpoint += ('&toread=yes')
 
     sendRequest(endpoint, function (response) {
         var code = response.responseXML.getElementsByTagName('result')[0].attributes.getNamedItem('code').value
