@@ -17,6 +17,8 @@ function popoverHandler (event) {
     var api = pinboardEndpoint('/posts/get/', url)
 
     sendRequest(api, function (response) {
+        document.bookmark.add.disabled = false;
+
         var json = JSON.parse(cleanPinboardJSON(response.responseText))
 
         if (json.posts.length != 2) {
@@ -32,6 +34,8 @@ function popoverHandler (event) {
         document.bookmark.private.checked = !json.posts[0].shared
         document.bookmark.toread.checked = !json.posts[0].toread
     })
+
+    document.bookmark.add.disabled = true;
 }
 
 safari.application.addEventListener('validate', validateHandler, false)
