@@ -59,7 +59,8 @@ function submitAction (event) {
     if (tags != '') endpoint += ('&tags=' + encodeURIComponent(tags))
 
     sendRequest(endpoint, function (response) {
-        var code = response.responseXML.getElementsByTagName('result')[0].attributes.getNamedItem('code').value
+        var json = JSON.parse(cleanPinboardJSON(response.responseText))
+        var code = json.result_code
 
         if (code === 'done') safari.extension.popovers[0].hide()
     })
