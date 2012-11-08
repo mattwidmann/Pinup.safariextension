@@ -21,7 +21,7 @@ function popoverHandler (event) {
 
         var json = JSON.parse(cleanPinboardJSON(response.responseText))
 
-        if (json.posts.length != 2) {
+        if (json.posts.length == 0) {
             document.bookmark.add.value = 'Add to Pinboard'
 
             return
