@@ -31,8 +31,8 @@ function popoverHandler (event) {
         document.bookmark.title.value = json.posts[0].description
         document.bookmark.description.value = json.posts[0].extended
         document.bookmark.tags.value = json.posts[0].tags
-        document.bookmark.private.checked = !json.posts[0].shared
-        document.bookmark.toread.checked = !json.posts[0].toread
+        document.bookmark.private.checked = (json.posts[0].shared == "no")
+        document.bookmark.toread.checked = (json.posts[0].toread == "yes")
     })
 
     document.bookmark.add.disabled = true;
