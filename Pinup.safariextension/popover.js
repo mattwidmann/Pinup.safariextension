@@ -5,6 +5,8 @@ function popoverHandler (event) {
     var url = safari.application.activeBrowserWindow.activeTab.url
     var title = safari.application.activeBrowserWindow.activeTab.title
 
+    // reset form
+    document.bookmark.add.value = 'Add to Pinboard'
     document.bookmark.url.value = url
     document.bookmark.title.value = title
     document.bookmark.description.value = ''
@@ -21,11 +23,8 @@ function popoverHandler (event) {
 
         var json = JSON.parse(cleanPinboardJSON(response.responseText))
 
-        if (json.posts.length == 0) {
-            document.bookmark.add.value = 'Add to Pinboard'
-
+        if (json.posts.length == 0)
             return
-        }
 
         document.bookmark.add.value = 'Edit Bookmark'
         document.bookmark.title.value = json.posts[0].description
