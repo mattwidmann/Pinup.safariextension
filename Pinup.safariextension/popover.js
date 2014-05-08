@@ -6,7 +6,7 @@ function popoverHandler (event) {
     var title = safari.application.activeBrowserWindow.activeTab.title
 
     // reset form
-    document.bookmark.add.value = 'Add to Pinboard'
+    document.bookmark.add.value = 'Checking...'
     document.bookmark.url.value = url
     document.bookmark.title.value = title
     document.bookmark.description.value = ''
@@ -23,8 +23,10 @@ function popoverHandler (event) {
 
         var json = JSON.parse(cleanPinboardJSON(response.responseText))
 
-        if (json.posts.length == 0)
+        if (json.posts.length == 0) {
+            document.bookmark.add.value = 'Add Bookmark';
             return
+        }
 
         document.bookmark.add.value = 'Edit Bookmark'
         document.bookmark.title.value = json.posts[0].description
@@ -46,14 +48,17 @@ function validateHandler (event) {
 document.bookmark.add.addEventListener('click', submitAction, false)
 
 function submitAction (event) {
-    var url = document.bookmark.url.value
-    var title = document.bookmark.title.value
-    var description = document.bookmark.description.value
-    var tags = document.bookmark.tags.value
-    var private = document.bookmark.private.checked
-    var toread = document.bookmark.toread.checked
+    document.bookmark.add.disabled = true;
+    document.bookmark.add.value = 'Submitting...'
 
-    var endpoint = pinboardEndpoint('/posts/add/', url) + '&description=' + encodeURIComponent(title) + '&shared=' + (private ? 'no' : 'yes') + '&toread=' + (toread ? 'yes' : 'no')
+    var url = document.bookmark.url.value
+      , title = document.bookmark.title.value
+      , description = document.bookmark.description.value
+      , tags = document.bookmark.tags.value
+      , private = document.bookmark.private.checked
+      , toread = document.bookmark.toread.checked
+      , endpoint = pinboardEndpoint('/posts/add/', url) + '&description=' + encodeURIComponent(title) + '&shared=' + (private ? 'no' : 'yes') + '&toread=' + (toread ? 'yes' : 'no')
+
     if (description !== '') endpoint += ('&extended=' + encodeURIComponent(description))
     if (tags != '') endpoint += ('&tags=' + encodeURIComponent(tags))
 
